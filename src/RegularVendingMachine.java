@@ -63,10 +63,32 @@ public class RegularVendingMachine {
         }
     }
 
-    public void setItemPrices() {
-        System.out.println("\t --------- Set Item Prices ---------");
-        System.out.print("Enter the prices for available items: ");
+    public void setItemCalories() {
+        System.out.println("####################################");
+        System.out.println("------------------------------------");
+        System.out.println("┌───────────────────────────────┐");
+        System.out.println("│       Set Item Calories       │");
+        System.out.println("└───────────────────────────────┘");
         System.out.println();
+        System.out.println("Enter the calories for the available items:");
+        for (int i = 0; i < SLOT_COUNT; i++) {
+            String itemSlot = itemSlots.get(i);
+            System.out.print("\t\t[" + (i + 1) + "]......" + itemSlot + ": ");
+            double calories = scanner.nextDouble();
+            itemCalories.set(i, calories);
+        }
+        System.out.println("------------------------------------");
+        System.out.println("####################################");
+        System.out.println();
+    }
+
+    public void setItemPrices() {
+        System.out.println("\t ┌───────────────────────────────┐");
+        System.out.println("\t │       Set Item Prices         │");
+        System.out.println("\t └───────────────────────────────┘");
+        System.out.println();
+        System.out.println("Enter the prices for available items:");
+
         for (int i = 0; i < SLOT_COUNT; i++) {
             String itemName = itemSlots.get(i);
             System.out.print("\t\t    " + (i + 1) + ". (" + itemName + "): ");
@@ -74,20 +96,10 @@ public class RegularVendingMachine {
             itemPrices.set(i, price);
         }
         System.out.println("----------------------------------");
+        System.out.println("####################################");
         System.out.println();
     }
 
-    public void setItemCalories() {
-        System.out.println("--------- Set Item Calories ---------");
-        System.out.println();
-        for (int i = 0; i < SLOT_COUNT; i++) {
-            String itemSlot = itemSlots.get(i);
-            System.out.print("\t\t  [" + (i + 1) + "]......" + itemSlot + ": ");
-            double calories = scanner.nextDouble();
-            itemCalories.set(i, calories);
-        }
-        System.out.println("------------------------------------");
-    }
 
     private void initializeDenominationQuantities() {
         for (int i = 0; i < DENOMINATION_COUNT; i++) {
@@ -132,19 +144,21 @@ public class RegularVendingMachine {
         System.out.println();
     }
 
-    private void setDenominationQuantities() {
-        System.out.println();
-        System.out.println("--------- Set Denomination Quantities ---------");
-        System.out.println();
-        System.out.print("Enter the quantity for denomination:");
+    public void setDenominationQuantities() {
+        System.out.println("┌───────────────────────────────────┐");
+        System.out.println("│ Set Denomination Quantities │");
+        System.out.println("└───────────────────────────────────┘");
         System.out.println();
         for (int i = 0; i < DENOMINATION_COUNT; i++) {
             String denominationName = denominationNames.get(i);
-            System.out.print((("\t\t  [" + (DENOMINATION_COUNT - i) + "]......" + denominationName + ": ")));
+            System.out.print("\t\t  [" + (i + 1) + "]......" + denominationName + ": ");
             int quantity = scanner.nextInt();
             denominationQuantities.set(i, quantity);
         }
         System.out.println("----------------------------------------------");
+        System.out.println("###############################################");
+
+        System.out.println();
     }
 
     public int getSlotCount() {
