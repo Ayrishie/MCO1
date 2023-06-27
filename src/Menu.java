@@ -10,10 +10,10 @@ public class Menu {
     }
 
     public void displayMenu() {
+        showTitleScreen(); // display once
         int choice;
         do {
             clearScreen();
-            showTitleScreen();
             clearScreen();
             showColoredMenu();
             choice = scanner.nextInt();
@@ -80,8 +80,8 @@ public class Menu {
 
     public void createVendingMachine() {
         System.out.println("\u001B[36m╔═══════════════════════════╗");
-        System.out.println("║    \u001B[37mR for Regular          \u001B[36m║");
-        System.out.println("║    \u001B[37mS for Special          \u001B[36m║");
+        System.out.println("║    \u001B[34mR for Regular          \u001B[36m║");
+        System.out.println("║    \u001B[34mS for Special          \u001B[36m║");
         System.out.println("╚═══════════════════════════╝\u001B[0m");
         System.out.println("\u001B[37mEnter your choice (R or S)");
         System.out.print("\t\t\t=> ");
@@ -89,19 +89,19 @@ public class Menu {
 
 
         while (!machineType.equalsIgnoreCase("R")) {
-            System.out.println("Invalid machine type. Please try again.");
             System.out.println("\u001B[36m╔═══════════════════════════╗");
-            System.out.println("║    \u001B[37mR for Regular          \u001B[36m║");
-            System.out.println("║    \u001B[37mS for Special          \u001B[36m║");
+            System.out.println("║    \u001B[34mR for Regular          \u001B[36m║");
+            System.out.println("║    \u001B[34mS for Special          \u001B[36m║");
             System.out.println("╚═══════════════════════════╝\u001B[0m");
-            System.out.println("\u001B[37mEnter your choice (R or S)");
+                        System.out.println("\u001B[37mEnter your choice (R or S)");
             System.out.print("\t\t\t=> ");
             machineType = scanner.next();
         }
 
         vendingMachine = new RegularVendingMachine();
         System.out.println();
-        System.out.println("\t\t\t \u001B[31mRegular Vending Machine created.\u001B[0m");
+        System.out.println("\t\t   \u001B[31mRegular Vending Machine created.\u001B[0m");
+
         System.out.println();
 
 
