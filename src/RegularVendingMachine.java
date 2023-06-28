@@ -386,12 +386,11 @@ public class RegularVendingMachine {
     //main
     public static void main(String[] args) {
         RegularVendingMachine vendingMachine = new RegularVendingMachine();
-        vendingMachine.displayItems();
-
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             try {
+                vendingMachine.displayItems();
                 System.out.print("Enter item slot number (1-" + vendingMachine.getSlotCount() + ") or -1 to exit: ");
                 int slot = scanner.nextInt();
 
@@ -399,11 +398,9 @@ public class RegularVendingMachine {
                     break;
                 }
 
+                vendingMachine.displayDenominationQuantities(); // Print denomination quantities after input
                 System.out.print("Enter payment denomination (1-9): ");
                 int paymentDenomination = scanner.nextInt();
-
-                vendingMachine.displayDenominationQuantities(); // Print denomination quantities after input
-
                 vendingMachine.processTransaction(slot - 1, paymentDenomination);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());

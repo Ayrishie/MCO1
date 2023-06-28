@@ -135,7 +135,6 @@ public class Menu {
         int itemNumber = scanner.nextInt();
 
         vendingMachine.displayDenominationQuantities();
-
         System.out.print("Enter the payment denomination (1-9): ");
         int paymentDenomination = scanner.nextInt();
 
