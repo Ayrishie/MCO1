@@ -191,7 +191,13 @@ public class RegularVendingMachine {
         return SLOT_COUNT;
     }
 
-    public boolean processTransaction(int slot, int paymentDenomination) {
+    public boolean processTransaction(int slot, int paymentDenomination) throws IllegalArgumentException {
+        {
+            if (paymentDenomination < 1 || paymentDenomination > DENOMINATION_COUNT) {
+                throw new IllegalArgumentException("Invalid payment denomination.");
+            }
+
+        }
         if (slot < 0 || slot >= SLOT_COUNT) {
             System.out.println("Invalid item slot.");
             return false;
@@ -206,6 +212,14 @@ public class RegularVendingMachine {
         int quantity = itemQuantities.get(slot);
         if (quantity <= 0) {
             System.out.println("Item out of stock.");
+            return false;
+        }
+
+        // Check if there is sufficient quantity for the payment denomination
+        int denominationIndex = paymentDenomination - 1;
+        int denominationQuantity = denominationQuantities.get(denominationIndex);
+        if (denominationQuantity <= 0) {
+            System.out.println("Insufficient quantity for the selected denomination. Transaction canceled.");
             return false;
         }
 
@@ -230,14 +244,6 @@ public class RegularVendingMachine {
             }
         }
 
-        // Check if there is sufficient quantity for the payment denomination
-        int denominationIndex = paymentDenomination - 1;
-        int denominationQuantity = denominationQuantities.get(denominationIndex);
-        if (denominationQuantity <= 0 || denominationQuantity < change) {
-            System.out.println("Insufficient quantity for the selected denomination. Transaction canceled.");
-            return false;
-        }
-
         // Update the denomination quantities
         giveChange(change);
         updateDenominationQuantity(paymentDenomination, -1);
@@ -253,13 +259,10 @@ public class RegularVendingMachine {
 
         printReceipt(slot, quantity - 1); // Pass the updated quantity of the item
 
+        displayItems(); // Call the displayItems() function to show the updated item quantities
+
         return true;
     }
-
-
-
-
-
 
 
     private boolean giveChange(double change) {
@@ -355,23 +358,26 @@ public class RegularVendingMachine {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("Enter item slot number (1-" + vendingMachine.getSlotCount() + ") or -1 to exit: ");
-            int slot = scanner.nextInt();
+            try {
+                System.out.print("Enter item slot number (1-" + vendingMachine.getSlotCount() + ") or -1 to exit: ");
+                int slot = scanner.nextInt();
 
-            if (slot == -1) {
-                break;
+                if (slot == -1) {
+                    break;
+                }
+
+                System.out.print("Enter payment denomination (1-9): ");
+                int paymentDenomination = scanner.nextInt();
+
+                vendingMachine.displayDenominationQuantities(); // Print denomination quantities after input
+
+                vendingMachine.processTransaction(slot - 1, paymentDenomination);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
-
-            System.out.print("Enter payment denomination (1-9): ");
-            int paymentDenomination = scanner.nextInt();
-
-            vendingMachine.displayDenominationQuantities(); // Print denomination quantities after input
-
-            vendingMachine.processTransaction(slot - 1, paymentDenomination);
         }
+
 
         scanner.close();
     }
 }
-
-//hello irish
