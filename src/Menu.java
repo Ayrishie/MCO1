@@ -93,7 +93,7 @@ public class Menu {
             System.out.println("║    \u001B[34mR for Regular          \u001B[36m║");
             System.out.println("║    \u001B[34mS for Special          \u001B[36m║");
             System.out.println("╚═══════════════════════════╝\u001B[0m");
-                        System.out.println("\u001B[37mEnter your choice (R or S)");
+            System.out.println("\u001B[37mEnter your choice (R or S)");
             System.out.print("\t\t\t=> ");
             machineType = scanner.next();
         }
