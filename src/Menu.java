@@ -113,6 +113,22 @@ public class Menu {
             return;
         }
 
+        System.out.println("Choose an option:");
+        System.out.println("1. Test Vending Features");
+        System.out.println("2. Test Maintenance Features");
+        System.out.print("Enter your choice (1 or 2): ");
+        int option = scanner.nextInt();
+
+        if (option == 1) {
+            testVendingFeatures();
+        } else if (option == 2) {
+            testMaintenanceFeatures();
+        } else {
+            System.out.println("Invalid choice.");
+        }
+    }
+
+    private void testVendingFeatures() {
         vendingMachine.displayItems();
 
         System.out.print("Enter the item number you want to purchase (1-" + vendingMachine.getSlotCount() + "): ");
@@ -133,6 +149,12 @@ public class Menu {
             System.out.println();
         }
     }
+
+    private void testMaintenanceFeatures() {
+        System.out.println("Maintenance features are not implemented yet.");
+        // Add code to implement maintenance features
+    }
+
 
     public static void main(String[] args) {
         Menu menu = new Menu();
