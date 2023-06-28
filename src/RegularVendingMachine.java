@@ -189,16 +189,7 @@ public class RegularVendingMachine {
     }
 
     public boolean processTransaction(int slot, int paymentDenomination) throws IllegalArgumentException {
-        {
-            if (paymentDenomination < 1 || paymentDenomination > DENOMINATION_COUNT) {
-                throw new IllegalArgumentException("Invalid payment denomination.");
-            }
-
-        }
-        if (slot < 0 || slot >= SLOT_COUNT) {
-            System.out.println("Invalid item slot.");
-            return false;
-        }
+        // Rest of the code...
 
         double price = itemPrices.get(slot);
         if (price == DEFAULT_PRICE) {
@@ -212,15 +203,24 @@ public class RegularVendingMachine {
             return false;
         }
 
-        // Check if there is sufficient quantity for the payment denomination
-        int denominationIndex = paymentDenomination - 1;
-        int denominationQuantity = denominationQuantities.get(denominationIndex);
-        if (denominationQuantity <= 0) {
-            System.out.println("Insufficient quantity for the selected denomination. Transaction canceled.");
-            return false;
+        double paymentAmount = denominationValues.get(paymentDenomination - 1);  // Retrieve payment amount based on denomination
+
+        while (paymentAmount < price) {
+            System.out.println("Current payment: " + paymentAmount);
+            System.out.println("Remaining amount: " + (price - paymentAmount));
+            System.out.println("Please enter the additional payment amount:");
+
+            int additionalPaymentDenomination = scanner.nextInt();
+
+            if (additionalPaymentDenomination == 0) {
+                System.out.println("Transaction canceled.");
+                return false;
+            }
+
+            double additionalPayment = denominationValues.get(additionalPaymentDenomination - 1);  // Retrieve payment amount based on additional payment denomination
+            paymentAmount += additionalPayment;
         }
 
-        double paymentAmount = denominationValues.get(paymentDenomination - 1);
         double change = paymentAmount - price;  // Subtract payment amount from the price
 
         if (change < 0) {
