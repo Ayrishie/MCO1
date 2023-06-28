@@ -149,7 +149,6 @@ public class RegularVendingMachine {
     }
 
 
-
     public void displayDenominationQuantities() {
         System.out.println();
         System.out.println("\u001B[36m╔══════════════════════════════════════════╗");
@@ -161,8 +160,6 @@ public class RegularVendingMachine {
         }
         System.out.println("\u001B[36m════════════════════════════════════════════");
     }
-
-
 
 
     public void setDenominationQuantities() {
@@ -380,4 +377,86 @@ public class RegularVendingMachine {
 
         scanner.close();
     }
+
+    public void refillItem(int slotNumber, int quantity) {
+        // Check if the slot number is valid
+        if (slotNumber < 1 || slotNumber > SLOT_COUNT) {
+            System.out.println("Invalid slot number. Please try again.");
+            return;
+        }
+
+        // Retrieve the item quantity based on the slot number
+        int itemQuantity = itemQuantities.get(slotNumber - 1);
+
+        // Calculate the remaining capacity of the specific slot
+        int remainingCapacity = 10 - itemQuantity;
+
+        // Check if the quantity to refill exceeds the remaining capacity of the specific slot
+        if (quantity > remainingCapacity) {
+            System.out.println("Cannot refill. The slot does not have enough capacity.");
+            return;
+        }
+
+        // Refill the slot with the specified quantity
+        itemQuantities.set(slotNumber - 1, itemQuantity + quantity);
+        System.out.println("Item refilled successfully.");
+    }
+
+
+
+
+
+
+    public void restockChange(int denominationNumber, int quantity) {
+        // Check if the denomination number is valid
+        if (denominationNumber < 1 || denominationNumber > DENOMINATION_COUNT) {
+            System.out.println("Invalid denomination number. Please try again.");
+            return;
+        }
+
+        // Retrieve the denomination quantity based on the denomination number
+        int denominationQuantity = denominationQuantities.get(denominationNumber - 1);
+
+
+        // Calculate the new denomination quantity after restocking
+        int newQuantity = denominationQuantity + quantity;
+
+
+        // Update the denomination quantity with the new quantity
+        denominationQuantities.set(denominationNumber - 1, newQuantity);
+        System.out.println("Change restocked successfully.");
+    }
+
+    private void updatePrices(RegularVendingMachine vendingMachine) {
+        vendingMachine.displayItems();
+        System.out.print("Enter the item number you want to update the price for (1-" + vendingMachine.getSlotCount() + "): ");
+        int itemNumber = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter the new price for the item: ");
+        double newPrice = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
+
+        vendingMachine.updateItemPrice(itemNumber - 1, newPrice);
+
+        System.out.println();
+        System.out.println("Price updated successfully.");
+        System.out.println();
+    }
+
+    public void updateItemPrice(int slot, double newPrice) {
+        if (slot < 1 || slot > SLOT_COUNT) {
+            System.out.println("Invalid slot number. Please try again.");
+            return;
+        }
+
+        int index = slot - 1;
+        itemPrices.set(index, newPrice);
+
+        System.out.println("Item price updated successfully!");
+        System.out.println("New price for " + itemSlots.get(index) + " is " + newPrice);
+    }
+
+
+
 }

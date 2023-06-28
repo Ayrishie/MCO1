@@ -12,4 +12,5 @@ public class VendingMachine {
     public void setVendingMachine(RegularVendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
     }
+
 }
