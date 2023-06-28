@@ -374,4 +374,3 @@ public class RegularVendingMachine {
     }
 }
 
-//hello irish
