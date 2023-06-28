@@ -188,7 +188,6 @@ public class Menu {
         scanner.nextLine(); // Consume the newline character
 
         vendingMachine.displayDenominationQuantities();
-
         System.out.print("Enter the payment denomination (1-9): ");
         int paymentDenomination = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
