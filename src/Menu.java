@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Menu {
@@ -8,7 +9,7 @@ public class Menu {
     public Menu() {
         scanner = new Scanner(System.in);
         vendingMachine = null;
-        maintenance = null;
+        maintenance = new Maintenance(); // Create an instance of Maintenance
     }
 
     public void displayMenu() {
@@ -187,7 +188,6 @@ public class Menu {
         int itemNumber = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
 
-        vendingMachine.displayDenominationQuantities();
         System.out.print("Enter the payment denomination (1-9): ");
         int paymentDenomination = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
@@ -204,13 +204,7 @@ public class Menu {
     }
 
     private void performMaintenance() {
-        if (maintenance == null) {
-            maintenance = new Maintenance();
-        }
-
-        RegularVendingMachine vendingMachine = maintenance.getVendingMachine();
-        if (vendingMachine == null) {
-            vendingMachine = this.vendingMachine; // Assign the created vending machine
+        if (maintenance.getVendingMachine() == null) {
             maintenance.setVendingMachine(vendingMachine); // Pass the reference to Maintenance
         }
 
@@ -220,8 +214,10 @@ public class Menu {
             System.out.println("1. Refill Items");
             System.out.println("2. Restock Change");
             System.out.println("3. Update Prices");
-            System.out.println("4. Go back");
-            System.out.print("Enter your choice (1-4): ");
+            System.out.println("4. Dispense payments.");
+            System.out.println("5. Print Summary");
+            System.out.println("6. Go back");
+            System.out.print("Enter your choice (1-6): ");
             option = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
@@ -233,38 +229,28 @@ public class Menu {
                     maintenance.restockChange(vendingMachine);
                     break;
                 case 3:
-                    updatePrices(vendingMachine);
+                    maintenance.updatePrices(vendingMachine);
                     break;
                 case 4:
+                    maintenance.dispenseTotalPayments(vendingMachine);
+                    break;
+                case 5:
+                    vendingMachine.printSummary();
+                    break;
+                case 6:
                     System.out.println("Going back to the main menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } while (option != 4);
+        } while (option != 6);
     }
 
-    private void updatePrices(RegularVendingMachine vendingMachine) {
-        if (vendingMachine == null) {
-            System.out.println("No Vending Machine created yet.");
-            return;
-        }
 
-        System.out.print("Enter the slot number of the item: ");
-        int slotNumber = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
-
-        System.out.print("Enter the new price for the item: ");
-        double newPrice = scanner.nextDouble();
-        scanner.nextLine(); // Consume the newline character
-
-        vendingMachine.updateItemPrice(slotNumber, newPrice);
-    }
     public static void main(String[] args) {
         Menu menu = new Menu();
         menu.displayMenu();
     }
 }
 
-//hello

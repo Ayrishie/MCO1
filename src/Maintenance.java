@@ -3,10 +3,12 @@ import java.util.Scanner;
 public class Maintenance {
     private RegularVendingMachine vendingMachine;
     private Scanner scanner;
+    private double totalSales; // New variable to store the total payments
 
     public Maintenance() {
         vendingMachine = null;
         scanner = new Scanner(System.in);
+        totalSales = 0.0; // Initialize total payments to 0
     }
 
     public RegularVendingMachine getVendingMachine() {
@@ -17,43 +19,6 @@ public class Maintenance {
         this.vendingMachine = vendingMachine;
     }
 
-    public void performMaintenance(RegularVendingMachine vendingMachine) {
-        this.vendingMachine = vendingMachine;
-        boolean done = false;
-        while (!done) {
-            clearScreen();
-            displayMaintenanceMenu();
-            int choice = getUserChoice();
-
-            switch (choice) {
-                case 1:
-                    refillItem(vendingMachine);
-                    break;
-                case 2:
-                    restockChange(vendingMachine);
-                    break;
-                case 3:
-                    done = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
-
-
-    private void displayMaintenanceMenu() {
-        System.out.println("Maintenance Menu");
-        System.out.println("1. Refill Items");
-        System.out.println("2. Restock Change");
-        System.out.println("3. Go back");
-    }
-
-    private int getUserChoice() {
-        System.out.print("Enter your choice: ");
-        return scanner.nextInt();
-    }
-
     public void refillItem(RegularVendingMachine vendingMachine) {
         vendingMachine.displayItems();
         System.out.print("Enter the slot number to refill: ");
@@ -61,10 +26,11 @@ public class Maintenance {
         System.out.print("Enter the quantity to refill: ");
         int quantity = scanner.nextInt();
         vendingMachine.refillItem(slotNumber, quantity);
+        totalSales = 0;
+
     }
 
     public void restockChange(RegularVendingMachine vendingMachine) {
-        vendingMachine.displayDenominationQuantities();
         System.out.print("Enter the denomination number to restock: ");
         int denominationNumber = scanner.nextInt();
         System.out.print("Enter the quantity to restock: ");
@@ -72,11 +38,28 @@ public class Maintenance {
         vendingMachine.restockChange(denominationNumber, quantity);
     }
 
+    public void updatePrices(RegularVendingMachine vendingMachine) {
+        if (vendingMachine == null) {
+            System.out.println("No Vending Machine created yet.");
+            return;
+        }
 
-    private void clearScreen() {
-        // Clear the console screen
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        System.out.print("Enter the slot number of the item: ");
+        int slotNumber = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter the new price for the item: ");
+        double newPrice = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
+
+        vendingMachine.updateItemPrice(slotNumber, newPrice);
     }
 
+    public void dispenseTotalPayments(RegularVendingMachine vendingMachine) {
+        double totalSales = vendingMachine.getTotalSales();
+        System.out.println("Total payments: $" + totalSales);
+        System.out.println("Dispensing $" + totalSales);
+        System.out.println("Payments dispensed.");
+        totalSales = 0; // Reset total payments after dispensing
+    }
 }
