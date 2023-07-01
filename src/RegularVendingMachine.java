@@ -47,6 +47,7 @@ public class RegularVendingMachine {
         setDenominationValues();
         setItemSlots();
         setItemPrices();
+        setItemPrices();
         initializeDenominationQuantities();
         setDenominationNames();
         displayItemCalories();  // Call the method to set calorie counts
@@ -256,21 +257,21 @@ public class RegularVendingMachine {
         String ANSI_YELLOW = "\u001B[33m";
         System.out.println();
         System.out.println(ANSI_RED + "╔════════════════════════════════════════════╗" + ANSI_RESET);
-        System.out.println(ANSI_RED + "║              RAIO  Vending Machine         ║" + ANSI_RESET);
+        System.out.println(ANSI_RED + "║           RAIO  Vending Machine            ║" + ANSI_RESET);
         System.out.println(ANSI_RED + "╠════════════════════════════════════════════╝" + ANSI_RESET);
         System.out.println(ANSI_RED + "║ " + ANSI_YELLOW + " Item purchased: " + itemSlots.get(slot) + ANSI_RED + " " + ANSI_RESET);
         System.out.println(ANSI_RED + "╠════════════════════════════════════════════" + ANSI_RESET);
-        System.out.println(ANSI_RED + "║  " + ANSI_YELLOW + "Before quantity:         " + (quantity + 1) + ANSI_RESET); // Add 1 to display the correct before quantity
-        System.out.println(ANSI_RED + "║  " + ANSI_YELLOW + "After quantity:          " + quantity +  ANSI_RESET);
+        System.out.println(ANSI_RED + "║  " + ANSI_YELLOW + "Before quantity:         " + (quantity + 1) + ANSI_YELLOW); // Add 1 to display the correct before quantity
+        System.out.println(ANSI_RED + "║  " + ANSI_YELLOW + "After quantity:          " + quantity +  ANSI_YELLOW);
         System.out.println(ANSI_RED + "╠════════════════════════════════════════════" + ANSI_YELLOW);
         System.out.printf(ANSI_RED + "║ %-15s: " + ANSI_YELLOW + "$%.2f             %n" + ANSI_YELLOW, "Total Sales", totalSales);
         System.out.printf(ANSI_RED + "║ %-15s: " + ANSI_YELLOW + "%d                %n", "Total Transactions", transactionCount);
         if (change > 0) {
-            System.out.printf(ANSI_RED + "║  " + ANSI_YELLOW + "Change: $%.2f%n", change);
+            System.out.printf(ANSI_RED + "║" + ANSI_YELLOW + "Change: $%.2f%n", change);
         }
         System.out.println(ANSI_RED + "╚═════════════════════════════════════════════" + ANSI_RESET);
-        System.out.println();
-        System.out.println();
+        System.out.println("╚═════════════════════════════════════════════");
+        System.out.println("-................................................-");
         System.out.println("\u001B[32m╔══════════════════════════════════════════╗");
         System.out.println("\u001B[32m║     Updated Denomination Quantities      ║");
         System.out.println("\u001B[32m╚══════════════════════════════════════════╝");
@@ -281,7 +282,30 @@ public class RegularVendingMachine {
         }
         System.out.println("\u001B[32m════════════════════════════════════════════");
     }
+    
+    /**
+     * The printSummary() function prints a summary of item quantities and sales transactions.
+     */
+    public void printSummary() {
+        System.out.println();
+        System.out.println("\u001B[93m╔══════════════════════════════════╗");
+        System.out.println("║           Item Summary           ║");
+        System.out.println("╠══════════════════════════════════╣");
+        for (int i = 0; i < SLOT_COUNT; i++) {
+            String item = itemSlots.get(i);
+            int initialQuantity = initialItemQuantities.get(i);
+            int soldQuantity = soldItemQuantities.get(i);
 
+            System.out.println("\u001B[97m║ Item: \u001B[92m║" + item);
+            System.out.println("\u001B[97m║ Before Quantity: \u001B[92m║" + initialQuantity);
+            System.out.println("\u001B[97m║ After Quantity: \u001B[92m║" + (initialQuantity - soldQuantity));
+            System.out.println("\u001B[97m║----------------------------------║");
+        }
+        System.out.println("\u001B[97m║ Number of transactions: \u001B[92m" + transactionCount);
+        System.out.println("\u001B[97m║ Total sales: \u001B[92m" + totalSales);
+        System.out.println("\u001B[93m╚══════════════════════════════════╝\u001B[0m");
+        System.out.println();
+    }
     /**
      * Returns the number of slots in the vending machine.
      *
@@ -323,8 +347,6 @@ public class RegularVendingMachine {
                 System.out.printf("$%d: %d%n", denominationValue, numBillsToDispense);
             }
         }
-
-        System.out.printf("$%d%n", remainingChange);
 
         if (remainingChange == 0) {
             // Update the original denomination quantities with the updated quantities
@@ -489,10 +511,9 @@ public class RegularVendingMachine {
 
         // Calculate the new denomination quantity after restocking
         int newQuantity = denominationQuantity + quantity;
-
-
         // Update the denomination quantity with the new quantity
         denominationQuantities.set(denominationNumber - 1, newQuantity);
+
         System.out.println("\u001B[33mChange restocked successfully.\u001B[0m");
     }
 
@@ -524,26 +545,7 @@ public class RegularVendingMachine {
     /**
      * The printSummary() function prints a summary of item quantities and sales transactions.
      */
-    public void printSummary() {
-        System.out.println();
-        System.out.println("\u001B[93m╔══════════════════════════════════╗");
-        System.out.println("║           Item Summary           ║");
-        System.out.println("╠══════════════════════════════════╣");
-        for (int i = 0; i < SLOT_COUNT; i++) {
-            String item = itemSlots.get(i);
-            int initialQuantity = initialItemQuantities.get(i);
-            int soldQuantity = soldItemQuantities.get(i);
 
-            System.out.println("\u001B[97m║ Item: \u001B[92m║" + item);
-            System.out.println("\u001B[97m║ Before Quantity: \u001B[92m║" + initialQuantity);
-            System.out.println("\u001B[97m║ After Quantity: \u001B[92m║" + (initialQuantity - soldQuantity));
-            System.out.println("\u001B[97m║----------------------------------║");
-        }
-        System.out.println("\u001B[97m║ Number of transactions: \u001B[92m" + transactionCount);
-        System.out.println("\u001B[97m║ Total sales: \u001B[92m" + totalSales);
-        System.out.println("\u001B[93m╚══════════════════════════════════╝\u001B[0m");
-        System.out.println();
-    }
 
 
     /**
