@@ -88,12 +88,12 @@ public class Menu {
         System.out.println();
         System.out.println();
         String createVMText =
-                "\u001B[35m\t╔══════════════════════════╗\n" +
-                        "\t║                          ║\n" +
-                        "\t║  Regular Vending Machine ║\n" +
-                        "\t║        created.          ║\n" +
-                        "\t║                          ║\n" +
-                        "\t╚══════════════════════════╝\u001B[0m";
+                "\u001B[35m\t  ╔══════════════════════════╗\n" +
+                        "\t  ║                          ║\n" +
+                        "\t  ║  Regular Vending Machine ║\n" +
+                        "\t  ║        created.          ║\n" +
+                        "\t  ║                          ║\n" +
+                        "\t  ╚══════════════════════════╝\u001B[0m";
 
         System.out.println(createVMText);
         System.out.println();

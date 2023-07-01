@@ -165,10 +165,11 @@ public class RegularVendingMachine {
             double price = itemPrices.get(i);
             int calories = itemCalories.get(i);
 
-            System.out.printf("\u001B[36m║ \u001B[33m%2d. %-20s%8d$%13.2f  %5d  \u001B[36m ║%n", i + 1, item, quantity, price, calories);
+            System.out.printf("\u001B[36m║ \u001B[33m%2d. %-20s%8d%13s  %5d  \u001B[36m ║%n\u001B[0m", i + 1, item, quantity, "$" + price, calories);
         }
         System.out.println("\u001B[36m╚════════════════════════════════════════════════════════╝");
     }
+
 
 
     public void displayUpdatedDenominationQuantities() {
@@ -178,7 +179,7 @@ public class RegularVendingMachine {
         System.out.println("\u001B[36m╚═══════════════════════════════════════════╝");
         for (int i = 0; i < denominationQuantities.size(); i++) {
             int denomination = denominationQuantities.get(i);
-            System.out.printf("\t\t\u001B[36m %2d.......$%3d: %2d                     %n", i + 1, denominationValues.get(i), denomination);
+            System.out.printf("\t\t\u001B[33m %2d.......$%3d: %2d                     %n\u001B[0m", i + 1, denominationValues.get(i), denomination);
         }
         System.out.println("\u001B[36m════════════════════════════════════════════");
     }
@@ -450,10 +451,10 @@ public class RegularVendingMachine {
             int initialQuantity = initialItemQuantities.get(i);
             int soldQuantity = soldItemQuantities.get(i);
 
-            System.out.println("\u001B[97m║ Item: \u001B[92m" + item);
-            System.out.println("\u001B[97m║ Before Quantity: \u001B[92m" + initialQuantity);
-            System.out.println("\u001B[97m║ After Quantity: \u001B[92m" + (initialQuantity - soldQuantity));
-            System.out.println("\u001B[97m║----------------------------------");
+            System.out.println("\u001B[97m║ Item: \u001B[92m║" + item);
+            System.out.println("\u001B[97m║ Before Quantity: \u001B[92m║" + initialQuantity);
+            System.out.println("\u001B[97m║ After Quantity: \u001B[92m║" + (initialQuantity - soldQuantity));
+            System.out.println("\u001B[97m║----------------------------------║");
         }
         System.out.println("\u001B[97m║ Number of transactions: \u001B[92m" + transactionCount);
         System.out.println("\u001B[97m║ Total sales: \u001B[92m" + totalSales);
