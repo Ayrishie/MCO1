@@ -282,7 +282,7 @@ public class RegularVendingMachine {
         }
         System.out.println("\u001B[32m════════════════════════════════════════════");
     }
-    
+
     /**
      * The printSummary() function prints a summary of item quantities and sales transactions.
      */
@@ -296,10 +296,10 @@ public class RegularVendingMachine {
             int initialQuantity = initialItemQuantities.get(i);
             int soldQuantity = soldItemQuantities.get(i);
 
-            System.out.println("\u001B[97m║ Item: \u001B[92m║" + item);
-            System.out.println("\u001B[97m║ Before Quantity: \u001B[92m║" + initialQuantity);
-            System.out.println("\u001B[97m║ After Quantity: \u001B[92m║" + (initialQuantity - soldQuantity));
-            System.out.println("\u001B[97m║----------------------------------║");
+            System.out.println("\u001B[97m║ Item: \u001B[92m" + item);
+            System.out.println("\u001B[97m║ Before Quantity: \u001B[92m" + initialQuantity);
+            System.out.println("\u001B[97m║ After Quantity: \u001B[92m" + (initialQuantity - soldQuantity));
+            System.out.println("\u001B[97m║----------------------------------");
         }
         System.out.println("\u001B[97m║ Number of transactions: \u001B[92m" + transactionCount);
         System.out.println("\u001B[97m║ Total sales: \u001B[92m" + totalSales);
@@ -541,12 +541,6 @@ public class RegularVendingMachine {
 
         System.out.println("\u001B[33mItem price updated successfully!\u001B[0m");
     }
-
-    /**
-     * The printSummary() function prints a summary of item quantities and sales transactions.
-     */
-
-
 
     /**
      * The function "resetItemQuantities" creates new ArrayLists to store the initial and sold
