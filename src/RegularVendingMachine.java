@@ -3,7 +3,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Collections;
 
-
+/**
+ * A class representing a regular vending machine.
+ */
 public class RegularVendingMachine {
     private static final int SLOT_COUNT = 8;
     private static final int ITEM_CAPACITY = 10;
@@ -23,7 +25,9 @@ public class RegularVendingMachine {
 
     private List<String> denominationNames;
 
-    // constructor
+    /**
+     * Constructs a RegularVendingMachine object and initializes its fields.
+     */
     public RegularVendingMachine() {
         itemSlots = new ArrayList<>();
         itemQuantities = new ArrayList<>();
@@ -50,7 +54,9 @@ public class RegularVendingMachine {
         displayDenominationQuantities();
     }
 
-    // Setters
+    /**
+     * Sets the item slots in the vending machine.
+     */
     private void setItemSlots() {
         itemSlots.add("Bread");
         itemSlots.add("Pizza Sauce");
@@ -66,6 +72,10 @@ public class RegularVendingMachine {
             itemCalories.add(0); // Add a default calorie value of 0 for each item
         }
     }
+
+    /**
+     * Sets the names of the denominations used in the vending machine.
+     */
     private void setDenominationNames() {
         denominationNames = new ArrayList<>();
         denominationNames.add("1000");
@@ -78,6 +88,10 @@ public class RegularVendingMachine {
         denominationNames.add("5");
         denominationNames.add("1");
     }
+
+    /**
+     * Sets the values of the denominations used in the vending machine.
+     */
     private void setDenominationValues() {
         denominationValues = new ArrayList<>();
         denominationValues.add(1000);
@@ -91,19 +105,27 @@ public class RegularVendingMachine {
         denominationValues.add(1);
     }
 
+    /**
+     * Sets the prices of the items in the vending machine.
+     */
     private void setItemPrices() {
         for (int i = 0; i < SLOT_COUNT; i++) {
             itemPrices.add(DEFAULT_PRICE);
         }
     }
 
+    /**
+     * Initializes the quantities of the denominations used in the vending machine.
+     */
     private void initializeDenominationQuantities() {
         for (int i = 0; i < DENOMINATION_COUNT; i++) {
             denominationQuantities.add(0);
         }
     }
 
-    //DISPLAY
+    /**
+     * Displays the item calories and allows the user to set the calorie count for each item.
+     */
     public void displayItemCalories() {
         System.out.println();
         System.out.println("\t####################################");
@@ -126,6 +148,9 @@ public class RegularVendingMachine {
         System.out.println("<.............................................>");
     }
 
+    /**
+     * Displays the item prices and allows the user to set the price for each item.
+     */
     public void displayItemPrices() {
         System.out.println();
         System.out.println("\t####################################");
@@ -149,6 +174,10 @@ public class RegularVendingMachine {
 
     }
 
+    /**
+     * Displays the items in the vending machine.
+     */
+
     public void displayItems() {
         System.out.println();
         System.out.println();
@@ -171,7 +200,9 @@ public class RegularVendingMachine {
     }
 
 
-
+    /**
+     * Displays the updated denomination quantities in the vending machine.
+     */
     public void displayUpdatedDenominationQuantities() {
         System.out.println();
         System.out.println("\u001B[36m╔═══════════════════════════════════════════╗");
@@ -185,6 +216,9 @@ public class RegularVendingMachine {
     }
 
 
+    /**
+     * Displays the denomination quantities and allows the user to set the quantities for each denomination.
+     */
     public void displayDenominationQuantities() {
         System.out.println();
         System.out.println("\t####################################");
@@ -207,30 +241,34 @@ public class RegularVendingMachine {
         System.out.println("<.............................................>");
     }
 
+    /**
+     * Prints the receipt for a transaction.
+     *
+     * @param slot     the slot number of the item purchased
+     * @param quantity the quantity of the item purchased
+     * @param change   the change amount given to the customer
+     */
     private void printReceipt(int slot, int quantity, double change) {
 
         // ANSI escape code for color formatting
         String ANSI_RESET = "\u001B[0m";
         String ANSI_RED = "\u001B[31m";
         String ANSI_YELLOW = "\u001B[33m";
-
         System.out.println();
-        System.out.println(ANSI_RED + "------------------------------------------");
-        System.out.println("         RAIO  Vending Machine");
-        System.out.println("------------------------------------------" + ANSI_RESET);
-        System.out.println("Item purchased: " + itemSlots.get(slot));
-        System.out.println(ANSI_RED + "------------------------------------------" + ANSI_RESET);
-        System.out.println("Before quantity:         " + (quantity + 1)); // Add 1 to display the correct before quantity
-        System.out.println("After quantity:          " + quantity);
-        System.out.println(ANSI_RED + "------------------------------------------" + ANSI_RESET);
-        System.out.printf("%-15s: " + ANSI_YELLOW + "$%.2f%n" + ANSI_RESET, "Total Sales", totalSales);
-        System.out.printf("%-15s: " + ANSI_YELLOW + "%d%n" + ANSI_RESET, "Total Transactions", transactionCount);
-        System.out.println(ANSI_RED + "------------------------------------------" + ANSI_RESET);
-
+        System.out.println(ANSI_RED + "╔════════════════════════════════════════════╗" + ANSI_RESET);
+        System.out.println(ANSI_RED + "║              RAIO  Vending Machine         ║" + ANSI_RESET);
+        System.out.println(ANSI_RED + "╠════════════════════════════════════════════╝" + ANSI_RESET);
+        System.out.println(ANSI_RED + "║ " + ANSI_YELLOW + " Item purchased: " + itemSlots.get(slot) + ANSI_RED + " " + ANSI_RESET);
+        System.out.println(ANSI_RED + "╠════════════════════════════════════════════" + ANSI_RESET);
+        System.out.println(ANSI_RED + "║  " + ANSI_YELLOW + "Before quantity:         " + (quantity + 1) + ANSI_RESET); // Add 1 to display the correct before quantity
+        System.out.println(ANSI_RED + "║  " + ANSI_YELLOW + "After quantity:          " + quantity +  ANSI_RESET);
+        System.out.println(ANSI_RED + "╠════════════════════════════════════════════" + ANSI_YELLOW);
+        System.out.printf(ANSI_RED + "║ %-15s: " + ANSI_YELLOW + "$%.2f             %n" + ANSI_YELLOW, "Total Sales", totalSales);
+        System.out.printf(ANSI_RED + "║ %-15s: " + ANSI_YELLOW + "%d                %n", "Total Transactions", transactionCount);
         if (change > 0) {
-            System.out.printf("Change: $%.2f%n", change);
+            System.out.printf(ANSI_RED + "║  " + ANSI_YELLOW + "Change: $%.2f%n", change);
         }
-
+        System.out.println(ANSI_RED + "╚═════════════════════════════════════════════" + ANSI_RESET);
         System.out.println();
         System.out.println();
         System.out.println("\u001B[32m╔══════════════════════════════════════════╗");
@@ -239,16 +277,26 @@ public class RegularVendingMachine {
 
         for (int i = 0; i < denominationQuantities.size(); i++) {
             int denomination = denominationQuantities.get(i);
-            System.out.printf("\t\t\u001B[32m %2d.......$%3d: %2d                     %n", i + 1, denominationValues.get(i), denomination);
+            System.out.printf("\t\t\u001B[33m %2d.......$%3d: %2d                     %n", i + 1, denominationValues.get(i), denomination);
         }
         System.out.println("\u001B[32m════════════════════════════════════════════");
     }
 
+    /**
+     * Returns the number of slots in the vending machine.
+     *
+     * @return the number of slots
+     */
     public int getSlotCount() {
         return SLOT_COUNT;
     }
 
 
+    /**
+     * Gives change to the customer for the transaction.
+     *
+     * @param change the change amount to be given
+     */
     private void giveChange(double change) {
         if (change == 0) {
             return;
@@ -292,6 +340,19 @@ public class RegularVendingMachine {
     }
 
 
+    /**
+     * The function `processTransaction` processes a transaction by checking if the item is available
+     * and the payment is sufficient, updating the item quantities and sales, giving change, printing a
+     * receipt, and displaying the updated item quantities.
+     *
+     * @param slot The slot parameter represents the index of the item in the inventory. It is used to
+     * retrieve the price and quantity of the item from the itemPrices and itemQuantities lists
+     * respectively.
+     * @param paymentDenomination The paymentDenomination parameter represents the denomination of the
+     * payment made by the customer. It is an integer value that corresponds to the index of the
+     * denomination in the denominationValues list.
+     * @return The method is returning a boolean value.
+     */
     public boolean processTransaction(int slot, int paymentDenomination) throws IllegalArgumentException {
         double price = itemPrices.get(slot);
         if (price == DEFAULT_PRICE) {
@@ -354,17 +415,23 @@ public class RegularVendingMachine {
         initialItemQuantities.set(slot, initialQuantity - 1);
         soldItemQuantities.set(slot, soldQuantity + 1);
 
-
-        // change  part di pa nag shshow
         printReceipt(slot, quantity - 1, change); // Pass the updated quantity of the item
-        //loop?
         displayItems(); // Call the displayItems() function to show the updated item quantities
 
         return true;
     }
 
 
-    //maintenance features
+    /**
+     * The refillItem function refills a specific slot in a vending machine with a specified quantity of
+     * items, checking for valid inputs and updating the item quantities accordingly.
+     *
+     * @param slotNumber The slot number represents the specific slot in a vending machine where an item
+     * is stored. It is an integer value that ranges from 1 to the total number of slots in the vending
+     * machine.
+     * @param quantity The quantity parameter represents the number of items to refill in a specific
+     * slot.
+     */
     public void refillItem(int slotNumber, int quantity) {
         // Check if the slot number is valid
         if (slotNumber < 1 || slotNumber > SLOT_COUNT) {
@@ -391,13 +458,20 @@ public class RegularVendingMachine {
 
         // Refill the slot with the specified quantity
         itemQuantities.set(slotNumber - 1, itemQuantity + quantity);
-        System.out.println("Item refilled successfully.");
+        System.out.println("\u001B[33mItem refilled successfully.\u001B[0m");
         resetItemQuantities(); // Reset initial item quantities and sold item quantities
         transactionCount = 0;
         resetTotalSales();
     }
 
-
+    /**
+     * The restockChange function restocks the quantity of a specific denomination of change.
+     *
+     * @param denominationNumber The denominationNumber parameter represents the number of the
+     * denomination that needs to be restocked.
+     * @param quantity The quantity parameter represents the number of units of a specific denomination
+     * that you want to restock.
+     */
     public void restockChange(int denominationNumber, int quantity) {
         // Check if the denomination number is valid
         if (denominationNumber < 1 || denominationNumber > DENOMINATION_COUNT) {
@@ -419,10 +493,17 @@ public class RegularVendingMachine {
 
         // Update the denomination quantity with the new quantity
         denominationQuantities.set(denominationNumber - 1, newQuantity);
-        System.out.println("\u001B[33mChange restocked successfully.\001B[0m");
+        System.out.println("\u001B[33mChange restocked successfully.\u001B[0m");
     }
 
-
+    /**
+     * The function updates the price of an item in a vending machine given the slot number and the new
+     * price.
+     *
+     * @param slot The slot parameter represents the slot number of the item whose price needs to be
+     * updated.
+     * @param newPrice The new price that you want to update for the item in the specified slot.
+     */
     public void updateItemPrice(int slot, double newPrice) {
         if (slot < 1 || slot > SLOT_COUNT) {
             System.out.println("Invalid slot number. Please try again.");
@@ -438,9 +519,11 @@ public class RegularVendingMachine {
         itemPrices.set(index, newPrice);
 
         System.out.println("\u001B[33mItem price updated successfully!\u001B[0m");
-        System.out.println("New price for " + itemSlots.get(index) + " is " + newPrice);
     }
 
+    /**
+     * The printSummary() function prints a summary of item quantities and sales transactions.
+     */
     public void printSummary() {
         System.out.println();
         System.out.println("\u001B[93m╔══════════════════════════════════╗");
@@ -463,16 +546,26 @@ public class RegularVendingMachine {
     }
 
 
-
+    /**
+     * The function "resetItemQuantities" creates new ArrayLists to store the initial and sold
+     * quantities of items.
+     */
     public void resetItemQuantities() {
         initialItemQuantities = new ArrayList<>(itemQuantities);
         soldItemQuantities = new ArrayList<>(Collections.nCopies(SLOT_COUNT, 0));
     }
 
+    /**
+     * The function returns the total sales as a double value.
+     *
+     * @return The method is returning the value of the variable totalSales, which is of type double.
+     */
     public double getTotalSales() {
         return totalSales;
     }
 
+    // The above code is defining a method called "resetTotalSales" in a Java class. This method sets
+    // the value of a variable called "totalSales" to 0.0.
     public void resetTotalSales() {
         totalSales = 0.0;
     }

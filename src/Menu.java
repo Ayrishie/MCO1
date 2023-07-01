@@ -12,7 +12,10 @@ public class Menu {
         maintenance = new Maintenance(); // Create an instance of Maintenance
     }
 
-    //print
+    /**
+     * The Menu class represents a user interface for interacting with a vending machine.
+     * It provides options to create a vending machine, test its features, and perform maintenance tasks.
+     */
 
     private void showTestVendingMachineSubMenu() {
         System.out.println();
@@ -28,6 +31,10 @@ public class Menu {
         System.out.print("\t\t=> ");
     }
 
+    /**
+     * Constructs a Menu object with default values.
+     * Initializes the scanner, vending machine, and maintenance objects.
+     */
     private void showTitleScreen() {
         System.out.println();
         System.out.println("\u001B[38;5;196m╔══════════════════════════════════════════╗");
@@ -45,7 +52,10 @@ public class Menu {
         }
     }
 
-
+    /**
+     * Displays the main menu and handles user input.
+     * Allows the user to create a vending machine, test its features, or exit the program.
+     */
     private void showColoredMenu() {
         System.out.println();
         System.out.println();
@@ -62,7 +72,10 @@ public class Menu {
     }
 
 
-
+    /**
+     * The function creates a vending machine and prompts the user to choose between a regular or
+     * special vending machine.
+     */
     public void createVendingMachine() {
         System.out.println("\u001B[36m╔═══════════════════════════╗");
         System.out.println("║    \u001B[34mR for Regular          \u001B[36m║");
@@ -101,6 +114,10 @@ public class Menu {
 
     }
 
+    /**
+     * The performMaintenance() function displays a maintenance menu and allows the user to perform
+     * various maintenance tasks on a vending machine.
+     */
     private void performMaintenance() {
         if (maintenance.getVendingMachine() == null) {
             maintenance.setVendingMachine(vendingMachine); // Pass the reference to Maintenance
@@ -150,7 +167,11 @@ public class Menu {
         } while (option != 6);
     }
 
-
+    /**
+     * The function "displayMenu" displays a menu with options to create a vending machine, test the
+     * vending machine, or exit the program, and continues to display the menu until the user chooses
+     * to exit.
+     */
     public void displayMenu() {
         showTitleScreen(); // display once
         int choice;
@@ -177,6 +198,10 @@ public class Menu {
         } while (choice != 3);
     }
 
+    /**
+     * The function "testVendingMachineSubMenu" displays a menu for testing vending machine features and
+     * allows the user to choose an option.
+     */
     public void testVendingMachineSubMenu() {
         if (vendingMachine == null) {
             System.out.println("\u001b[31m No Vending Machine created yet.");
@@ -207,12 +232,18 @@ public class Menu {
         } while (option != 3);
     }
 
+    /**
+     * The clearScreen() function clears the console screen in Java.
+     */
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
-
+    /**
+     * The function allows the user to test vending machine features by selecting an item and making a
+     * payment.
+     */
     private void testVendingFeatures() {
         vendingMachine.displayItems();
 
