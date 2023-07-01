@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,10 +16,12 @@ public class RegularVendingMachine {
     private List<Double> itemCalories;  // New list to hold calorie counts
     private double totalSales;
     private int transactionCount;
-    private Scanner scanner;
+    private final Scanner scanner;
 
     private List<String> denominationNames;
 
+
+    // constructor
     public RegularVendingMachine() {
         itemSlots = new ArrayList<>();
         itemQuantities = new ArrayList<>();
@@ -29,18 +32,20 @@ public class RegularVendingMachine {
         transactionCount = 0;
         scanner = new Scanner(System.in);
 
-        initializeDenominationValues();
-        initializeItemSlots();
-        initializeItemPrices();
+        setDenominationValues();
+        setItemSlots();
+        setItemPrices();
         initializeDenominationQuantities();
-        initializeDenominationNames();
-        setItemCalories();  // Call the method to set calorie counts
-        setItemPrices();   // Call the method to set item prices
-        setDenominationQuantities();
+        setDenominationNames();
+        displayItemCalories();  // Call the method to set calorie counts
+        displayItemPrices();   // Call the method to set item prices
+        displayDenominationQuantities();
     }
 
 
-    private void initializeItemSlots() {
+    // Setters
+
+    private void setItemSlots() {
         itemSlots.add("Bread");
         itemSlots.add("Pizza Sauce");
         itemSlots.add("Cheese");
@@ -55,15 +60,46 @@ public class RegularVendingMachine {
             itemCalories.add(0.0); // Add a default calorie value of 0 for each item
         }
     }
+    private void setDenominationNames() {
+        denominationNames = new ArrayList<>();
+        denominationNames.add("1000");
+        denominationNames.add("500");
+        denominationNames.add("200");
+        denominationNames.add("100");
+        denominationNames.add("50");
+        denominationNames.add("20");
+        denominationNames.add("10");
+        denominationNames.add("5");
+        denominationNames.add("1");
+    }
+    private void setDenominationValues() {
+        denominationValues = new ArrayList<>();
+        denominationValues.add(1000);
+        denominationValues.add(500);
+        denominationValues.add(200);
+        denominationValues.add(100);
+        denominationValues.add(50);
+        denominationValues.add(20);
+        denominationValues.add(10);
+        denominationValues.add(5);
+        denominationValues.add(1);
+    }
 
 
-    private void initializeItemPrices() {
+    private void setItemPrices() {
         for (int i = 0; i < SLOT_COUNT; i++) {
             itemPrices.add(DEFAULT_PRICE);
         }
     }
 
-    public void setItemCalories() {
+    private void initializeDenominationQuantities() {
+        for (int i = 0; i < DENOMINATION_COUNT; i++) {
+            denominationQuantities.add(0);
+        }
+    }
+
+    //DISPLAY
+    public void displayItemCalories() {
         System.out.println();
         System.out.println("\t####################################");
         System.out.println("\t------------------------------------");
@@ -85,7 +121,7 @@ public class RegularVendingMachine {
         System.out.println("<.............................................>");
     }
 
-    public void setItemPrices() {
+    public void displayItemPrices() {
         System.out.println();
         System.out.println("\t####################################");
         System.out.println("\t------------------------------------");
@@ -108,51 +144,6 @@ public class RegularVendingMachine {
 
     }
 
-
-    private void initializeDenominationQuantities() {
-        for (int i = 0; i < DENOMINATION_COUNT; i++) {
-            denominationQuantities.add(0);
-        }
-    }
-
-    private void initializeDenominationNames() {
-        denominationNames = new ArrayList<>();
-        denominationNames.add("1000");
-        denominationNames.add("500");
-        denominationNames.add("200");
-        denominationNames.add("100");
-        denominationNames.add("50");
-        denominationNames.add("20");
-        denominationNames.add("10");
-        denominationNames.add("5");
-        denominationNames.add("1");
-    }
-
-
-    private void updateDenominationQuantity(int denominationIndex, int quantityChange) {
-        if (denominationIndex >= 0 && denominationIndex < denominationQuantities.size()) {
-            int updatedQuantity = denominationQuantities.get(denominationIndex) + quantityChange;
-            denominationQuantities.set(denominationIndex, updatedQuantity);
-        } else {
-            throw new IndexOutOfBoundsException("Invalid denomination index: " + denominationIndex);
-        }
-    }
-
-
-    private void initializeDenominationValues() {
-        denominationValues = new ArrayList<>();
-        denominationValues.add(1000);
-        denominationValues.add(500);
-        denominationValues.add(200);
-        denominationValues.add(100);
-        denominationValues.add(50);
-        denominationValues.add(20);
-        denominationValues.add(10);
-        denominationValues.add(5);
-        denominationValues.add(1);
-    }
-
-
     public void displayItems() {
 
         System.out.println();
@@ -174,7 +165,7 @@ public class RegularVendingMachine {
     }
 
 
-    public void displayDenominationQuantities() {
+    public void displayUpdatedDenominationQuantities() {
         System.out.println();
         System.out.println("\u001B[36m╔═══════════════════════════════════════════╗");
         System.out.println("\u001B[36m║         Available Bills For Change        ║");
@@ -187,7 +178,7 @@ public class RegularVendingMachine {
     }
 
 
-    public void setDenominationQuantities() {
+    public void displayDenominationQuantities() {
         System.out.println();
         System.out.println("\t####################################");
         System.out.println("\t------------------------------------");
@@ -209,157 +200,49 @@ public class RegularVendingMachine {
         System.out.println("<.............................................>");
     }
 
-    public int getSlotCount() {
-        return SLOT_COUNT;
-    }
+    private void printReceipt(int slot, int quantity, double change) {
 
-    public boolean processTransaction(int slot, int paymentDenomination) throws IllegalArgumentException {
+        // ANSI escape code for color formatting
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_YELLOW = "\u001B[33m";
 
-        double price = itemPrices.get(slot);
-        if (price == DEFAULT_PRICE) {
-            System.out.println("Item price not set.");
-            return false;
-        }
-
-        int quantity = itemQuantities.get(slot);
-        if (quantity <= 0) {
-            System.out.println("Item out of stock.");
-            return false;
-        }
-
-        double paymentAmount = denominationValues.get(paymentDenomination - 1);  // Retrieve payment amount based on denomination
-
-        while (paymentAmount < price) {
-            System.out.println("Current payment: " + paymentAmount);
-            System.out.println("Remaining amount: " + (price - paymentAmount));
-            System.out.println("Please enter the additional payment amount:");
-
-            int additionalPaymentDenomination = scanner.nextInt();
-
-            if (additionalPaymentDenomination == 0) {
-                System.out.println("Transaction canceled.");
-                return false;
-            }
-
-            // error i think
-            double additionalPayment = denominationValues.get(additionalPaymentDenomination-1);  // Retrieve payment amount based on additional payment denomination
-            paymentAmount += additionalPayment;
-
-        }
-
-        double change = paymentAmount - price;  // Subtract payment amount from the price
-
-        if (change < 0) {
-            System.out.println("Insufficient payment. Please add more to the payment or enter 0 to cancel.");
-            int additionalPayment = scanner.nextInt();
-
-            if (additionalPayment == 0) {
-                System.out.println("Transaction canceled.");
-                return false;
-            }
-
-            paymentAmount += additionalPayment;
-            change = paymentAmount - price;
-
-            if (change < 0) {
-                System.out.println("Still insufficient payment. Transaction canceled.");
-                return false;
-            }
-        }
-
-        // Update the denomination quantities
-        giveChange(change);
-        // Calculate the change amount
-        double changeAmount = paymentAmount - price;
-
-        // Check if change needs to be given change EDITED TO ENSURE DENOMINATIONS ARE CORRECT
-        if (changeAmount > 0) {
-            System.out.println("Change: $" + changeAmount);
-
-            // Calculate the denomination quantities based on the change amount
-            for (int i = denominationQuantities.size() - 1; i >= 0; i--) {
-                int denominationQuantity = denominationQuantities.get(i);
-                double denominationValue = denominationValues.get(i);
-
-                // Calculate the number of denominations needed for the change
-                int numOfDenominations = (int) (changeAmount / denominationValue);
-                int availableDenominations = Math.min(numOfDenominations, denominationQuantity);
-
-                // Update the denomination quantities
-                denominationQuantities.set(i, denominationQuantity - availableDenominations);
-
-                // Update the change amount
-                changeAmount -= availableDenominations * denominationValue;
-
-                // Check if change has been fully given
-                if (changeAmount == 0) {
-                    break;
-                }
-            }
-        }
-
-       
-        // Check if change is available before processing the transaction
-        if (!checkChangeAvailability(change)) {
-            System.out.println("Cannot give change. Please enter exact payment.");
-            return false;
-        }
-
-        itemQuantities.set(slot, quantity - 1);
-        totalSales += price;
-        transactionCount++;
-
-        System.out.println("Item dispensed: " + itemSlots.get(slot));
+        System.out.println();
+        System.out.println(ANSI_RED + "------------------------------------------");
+        System.out.println("         RAIO  Vending Machine");
+        System.out.println("------------------------------------------" + ANSI_RESET);
+        System.out.println("Item purchased: " + itemSlots.get(slot));
+        System.out.println(ANSI_RED + "------------------------------------------" + ANSI_RESET);
+        System.out.println("Before quantity:         " + (quantity + 1)); // Add 1 to display the correct before quantity
+        System.out.println("After quantity:          " + quantity);
+        System.out.println(ANSI_RED + "------------------------------------------" + ANSI_RESET);
+        System.out.printf("%-15s: " + ANSI_YELLOW + "$%.2f%n" + ANSI_RESET, "Total Sales", totalSales);
+        System.out.printf("%-15s: " + ANSI_YELLOW + "%d%n" + ANSI_RESET, "Total Transactions", transactionCount);
+        System.out.println(ANSI_RED + "------------------------------------------" + ANSI_RESET);
 
         if (change > 0) {
             System.out.printf("Change: $%.2f%n", change);
         }
 
-        printReceipt(slot, quantity - 1); // Pass the updated quantity of the item
+        System.out.println();
+        System.out.println();
+        System.out.println("\u001B[32m╔══════════════════════════════════════════╗");
+        System.out.println("\u001B[32m║     Updated Denomination Quantities      ║");
+        System.out.println("\u001B[32m╚══════════════════════════════════════════╝");
 
-        displayItems(); // Call the displayItems() function to show the updated item quantities
+        for (int i = 0; i < denominationQuantities.size(); i++) {
+            int denomination = denominationQuantities.get(i);
+            System.out.printf("\t\t\u001B[32m %2d.......$%3d: %2d                     %n", i + 1, denominationValues.get(i), denomination);
+        }
+        System.out.println("\u001B[32m════════════════════════════════════════════");
+    }
 
-        return true;
-
+    public int getSlotCount() {
+        return SLOT_COUNT;
     }
 
 
-    private boolean giveChange(double change) {
-        if (change == 0) {
-            return true;
-        }
-
-        int remainingChange = (int) (change * 100); // Convert change to cents
-
-        // Create a copy of the denomination quantities to track the changes
-        List<Integer> updatedQuantities = new ArrayList<>(denominationQuantities);
-
-        for (int i = denominationValues.size() - 1; i >= 0; i--) {
-            int denominationValue = denominationValues.get(i);
-            int denominationQuantity = updatedQuantities.get(i);
-
-            int numBillsToDispense = Math.min(remainingChange / denominationValue, denominationQuantity);
-            remainingChange -= numBillsToDispense * denominationValue;
-            updatedQuantities.set(i, denominationQuantity - numBillsToDispense);
-        }
-
-        if (remainingChange == 0) {
-            // Update the original denomination quantities with the updated quantities
-            denominationQuantities = updatedQuantities;
-
-            // Update totalSales
-            double salesAmount = change;
-            totalSales += salesAmount;
-
-            return true;
-        }
-
-        return false;
-    }
-
-
-
-    //NOT BEING USED
+    //logic for item processing
 
     private boolean checkChangeAvailability(double change) {
         int[] dp = new int[(int) (change * 100) + 1];
@@ -381,57 +264,127 @@ public class RegularVendingMachine {
     }
 
 
-    private void printReceipt(int slot, int quantity) {
-
-        System.out.println();
-        System.out.println("--------- Transaction Receipt ---------");
-        System.out.println("Item purchased: " + itemSlots.get(slot));
-        System.out.println("Before quantity: " + (quantity + 1)); // Add 1 to display the correct before quantity
-        System.out.println("After quantity: " + quantity);
-        System.out.printf("Total Sales: $%.2f%n", totalSales);
-        System.out.printf("Total Transactions: %d%n", transactionCount);
-        System.out.println();
-        System.out.println("\u001B[36m╔══════════════════════════════════════════╗");
-        System.out.println("\u001B[36m║     Updated Denomination Quantities      ║");
-        System.out.println("\u001B[36m╚══════════════════════════════════════════╝");
-
-        for (int i = 0; i < denominationQuantities.size(); i++) {
-            int denomination = denominationQuantities.get(i);
-            System.out.printf("\t\t\u001B[36m %2d.......$%3d: %2d                     %n", i + 1, denominationValues.get(i), denomination);
+    private void giveChange(double change) {
+        if (change == 0) {
+            return;
         }
-        System.out.println("\u001B[36m════════════════════════════════════════════");
-    }
 
+        int remainingChange = (int) change;
 
-    public static void main(String[] args) {
-        RegularVendingMachine vendingMachine = new RegularVendingMachine();
-        vendingMachine.displayItems();
+        // Create a copy of the denomination quantities to track the changes
+        List<Integer> updatedQuantities = new ArrayList<>(denominationQuantities);
 
-        Scanner scanner = new Scanner(System.in);
+        int[] denominations = {1000, 500, 200, 100, 50, 20, 10, 5, 1};
+        int amount = (int) change;
 
-        while (true) {
-            try {
-                System.out.print("Enter item slot number (1-" + vendingMachine.getSlotCount() + ") or -1 to exit: ");
-                int slot = scanner.nextInt();
+        for (int i = 0; i < denominations.length; i++) {
+            int denominationValue = denominations[i];
 
-                if (slot == -1) {
-                    break;
-                }
+            if (amount >= denominationValue) {
+                int denominationQuantity = updatedQuantities.get(i);
+                int numBillsToDispense = Math.min(amount / denominationValue, denominationQuantity);
 
-                System.out.print("Enter payment denomination (1-9): ");
-                int paymentDenomination = scanner.nextInt();
-
-                vendingMachine.displayDenominationQuantities(); // Print denomination quantities after input
-
-                vendingMachine.processTransaction(slot - 1, paymentDenomination);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                remainingChange -= numBillsToDispense * denominationValue;
+                amount -= numBillsToDispense * denominationValue;
+                updatedQuantities.set(i, denominationQuantity - numBillsToDispense);
+                System.out.printf("$%d: %d%n", denominationValue, numBillsToDispense);
             }
         }
 
+        System.out.printf("$%d%n", remainingChange);
 
-        scanner.close();
+        if (remainingChange == 0) {
+            // Update the original denomination quantities with the updated quantities
+            denominationQuantities = updatedQuantities;
+
+            // Update totalSales
+            totalSales += change;
+            
+        } else {
+            System.out.println("Cannot give exact change. Transaction canceled.");
+
+            // Roll back the changes made to the denomination quantities
+            denominationQuantities = updatedQuantities;
+        }
     }
+
+
+
+
+    public boolean processTransaction(int slot, int paymentDenomination) throws IllegalArgumentException {
+        double price = itemPrices.get(slot);
+        if (price == DEFAULT_PRICE) {
+            System.out.println("Item price not set.");
+            return false;
+        }
+
+        int quantity = itemQuantities.get(slot);
+        if (quantity <= 0) {
+            System.out.println("Item out of stock.");
+            return false;
+        }
+
+        double paymentAmount = denominationValues.get(paymentDenomination - 1); // Retrieve payment amount based on denomination
+
+        while (paymentAmount < price) {
+            System.out.println("Current payment: " + paymentAmount);
+            System.out.println("Remaining amount: " + (price - paymentAmount));
+            System.out.println("Please enter the additional payment amount:");
+
+            int additionalPaymentDenomination = scanner.nextInt();
+
+            if (additionalPaymentDenomination == 0) {
+                System.out.println("Transaction canceled.");
+                return false;
+            }
+
+            double additionalPayment = denominationValues.get(additionalPaymentDenomination - 1); // Retrieve payment amount based on additional payment denomination
+            paymentAmount += additionalPayment;
+        }
+
+        double change = paymentAmount - price; // Calculate the change
+
+        if (change < 0) {
+            System.out.println("Insufficient payment. Please add more to the payment or enter 0 to cancel.");
+            int additionalPayment = scanner.nextInt();
+
+            if (additionalPayment == 0) {
+                System.out.println("Transaction canceled.");
+                return false;
+            }
+
+            paymentAmount += additionalPayment;
+            change = paymentAmount - price;
+
+            if (change < 0) {
+                System.out.println("Still insufficient payment. Transaction canceled.");
+                return false;
+            }
+        }
+
+        // Update the denomination quantities and calculate the change amount
+        giveChange(change);
+
+        itemQuantities.set(slot, quantity - 1);
+        transactionCount++;
+
+
+
+
+        // change  part di pa nag shshow
+        printReceipt(slot, quantity - 1, change); // Pass the updated quantity of the item
+        //loop?
+        displayItems(); // Call the displayItems() function to show the updated item quantities
+
+        return true;
+    }
+
+
+
+
+
+
+
 
     public void refillItem(int slotNumber, int quantity) {
         // Check if the slot number is valid
@@ -459,9 +412,6 @@ public class RegularVendingMachine {
 
 
 
-
-
-
     public void restockChange(int denominationNumber, int quantity) {
         // Check if the denomination number is valid
         if (denominationNumber < 1 || denominationNumber > DENOMINATION_COUNT) {
@@ -482,6 +432,7 @@ public class RegularVendingMachine {
         System.out.println("Change restocked successfully.");
     }
 
+    // not being use
     private void updatePrices(RegularVendingMachine vendingMachine) {
         vendingMachine.displayItems();
         System.out.print("Enter the item number you want to update the price for (1-" + vendingMachine.getSlotCount() + "): ");
@@ -513,5 +464,53 @@ public class RegularVendingMachine {
     }
 
 
+    public static void main(String[] args) {
+        RegularVendingMachine vendingMachine = new RegularVendingMachine();
+        vendingMachine.displayItems();
+
+        Scanner scanner = new Scanner(System.in);
+
+        int slot = 0; // Initialize the slot variable outside the loop
+
+        while (true) {
+            try {
+                if (slot == 0) {
+                    System.out.print("Enter item slot number (1-8) or -1 to exit: ");
+                    slot = scanner.nextInt();
+
+                    if (slot == -1) {
+                        break;
+                    }
+
+                    if (slot < 1 || slot > 8) {
+                        System.out.println("Invalid input. Please enter a number from 1 to 8 or -1.");
+                        slot = 0; // Reset the slot value to prompt for input again
+                        continue; // Restart the loop to get a valid slot input
+                    }
+
+                    // Continue with the rest of the code for the selected slot
+                }
+
+                System.out.print("Enter payment denomination (1-9): ");
+                int paymentDenomination = scanner.nextInt();
+
+                if (paymentDenomination >= 1 && paymentDenomination <= 9) {
+                    vendingMachine.displayUpdatedDenominationQuantities(); // Print denomination quantities after input
+                    vendingMachine.processTransaction(slot - 1, paymentDenomination);
+                } else {
+                    System.out.println("Invalid input. Please enter a denomination from 1 to 9.");
+                    continue; // Restart the loop to get a valid denomination input
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+
+
+
+
+        scanner.close();
+    }
 
 }
