@@ -135,6 +135,7 @@ public class RegularVendingMachine {
         System.out.println("\t \u001B[33m│       Set Item Calories       │\u001B[0m");
         System.out.println("\t \u001B[33m└───────────────────────────────┘\u001B[0m");
 
+
         System.out.println();
         System.out.println("Enter the calories for the available items:");
         for (int i = 0; i < SLOT_COUNT; i++) {
@@ -159,6 +160,7 @@ public class RegularVendingMachine {
         System.out.println("\t \u001B[33m┌───────────────────────────────┐\u001B[0m");
         System.out.println("\t \u001B[33m│       Set Item Prices         │\u001B[0m");
         System.out.println("\t \u001B[33m└───────────────────────────────┘\u001B[0m");
+
 
         System.out.println();
         System.out.println("Enter the prices for available items:");
