@@ -20,13 +20,13 @@ public class Menu {
     private void showTestVendingMachineSubMenu() {
         System.out.println();
         System.out.println();
-        System.out.println("\u001B[35m╔══════════════════════════════════════╗");
-        System.out.println("\u001B[35m║           Test Vending Machine       ║");
-        System.out.println("\u001B[35m╠══════════════════════════════════════╣");
-        System.out.println("\u001B[31m║  1. Test Vending Features            ║");
-        System.out.println("\u001B[31m║  2. Maintenance                      ║");
-        System.out.println("\u001B[31m║  3. Go back to main menu             ║");
-        System.out.println("\u001B[35m╚══════════════════════════════════════╝");
+        System.out.println("\u001B[35m========================================");
+        System.out.println("\u001B[35m      Test Vending Machine Menu       ");
+        System.out.println("\u001B[35m========================================");
+        System.out.println("\u001B[31m  1. Test Vending Features");
+        System.out.println("\u001B[31m  2. Maintenance");
+        System.out.println("\u001B[31m  3. Go back to main menu");
+        System.out.println("\u001B[35m========================================");
         System.out.println("\u001B[0mEnter your choice (1-3)");
         System.out.print("\t\t=> ");
     }
@@ -37,13 +37,14 @@ public class Menu {
      */
     private void showTitleScreen() {
         System.out.println();
-        System.out.println("\u001B[38;5;196m╔══════════════════════════════════════════╗");
-        System.out.println("\u001B[38;5;202m║\u001B[38;5;196m       RRRR    AAAA  IIIIII   OOOOO       \u001B[38;5;202m║");
-        System.out.println("\u001B[38;5;208m║\u001B[38;5;196m       R   R  A    A   II     O   O       \u001B[38;5;208m║");
-        System.out.println("\u001B[38;5;214m║\u001B[38;5;196m       RRRR   AAAAAA   II     O   O       \u001B[38;5;214m║");
-        System.out.println("\u001B[38;5;220m║\u001B[38;5;196m       R  R   A    A   II     O   O       \u001B[38;5;220m║");
-        System.out.println("\u001B[38;5;226m║\u001B[38;5;196m       R   R  A    A  IIIII   OOOOO       \u001B[38;5;226m║");
-        System.out.print("\u001B[38;5;190m╚══════════════════════════════════════════╝");
+        System.out.println("\u001B[38;5;196m========== Test Vending Machine ==========");
+        System.out.println("\u001B[38;5;202mRRRR    AAAA  IIIIII   OOOOO");
+        System.out.println("\u001B[38;5;208mR   R  A    A   II     O   O");
+        System.out.println("\u001B[38;5;214mRRRR   AAAAAA   II     O   O");
+        System.out.println("\u001B[38;5;220mR  R   A    A   II     O   O");
+        System.out.println("\u001B[38;5;226mR   R  A    A  IIIII   OOOOO");
+        System.out.print("\u001B[38;5;190m========================================");
+
         System.out.println("\nWelcome to RAIO Vending Machine Factory and Store!");
         try {
             Thread.sleep(2000);
@@ -59,14 +60,14 @@ public class Menu {
     private void showColoredMenu() {
         System.out.println();
         System.out.println();
-        System.out.println("\u001B[32m╔══════════════════════════════════════╗");
-        System.out.println("\u001B[32m║           Vending Machine            ║");
-        System.out.println("\u001B[32m╠══════════════════════════════════════╣");
-        System.out.println("\u001B[33m║  1. Create a Vending Machine         ║");
-        System.out.println("\u001B[33m║  2. Test a Vending Machine           ║");
-        System.out.println("\u001B[33m║  3. Exit                             ║");
-        System.out.println("\u001B[32m╚══════════════════════════════════════╝");
-        System.out.println("\u001B[0mEnter your choice (1-3)");
+        System.out.println("\u001B[32m====== Vending Machine Menu ======");
+        System.out.println("\u001B[32mVending Machine");
+        System.out.println("\u001B[32m=================================");
+        System.out.println("\u001B[33m1. Create a Vending Machine");
+        System.out.println("\u001B[33m2. Test a Vending Machine");
+        System.out.println("\u001B[33m3. Exit");
+        System.out.println("\u001B[32m=================================");
+
         System.out.print("\t\t=> ");
 
     }
@@ -77,20 +78,23 @@ public class Menu {
      * special vending machine.
      */
     public void createVendingMachine() {
-        System.out.println("\u001B[36m╔═══════════════════════════╗");
-        System.out.println("║    \u001B[34mR for Regular          \u001B[36m║");
-        System.out.println("║    \u001B[34mS for Special          \u001B[36m║");
-        System.out.println("╚═══════════════════════════╝\u001B[0m");
+        System.out.println("\u001B[36m===============================");
+        System.out.println("|    \u001B[34mR for Regular          \u001B[36m|");
+        System.out.println("|    \u001B[34mS for Special          \u001B[36m|");
+        System.out.println("===============================\u001B[0m");
         System.out.println("\u001B[0mEnter your choice (R or S)");
+
         System.out.print("\t\t\t=> ");
         String machineType = scanner.next();
         scanner.nextLine(); // Consume the newline character
 
         while (!machineType.equalsIgnoreCase("R")) {
-            System.out.println("\u001B[36m╔═══════════════════════════╗");
-            System.out.println("║    \u001B[34mR for Regular          \u001B[36m║");
-            System.out.println("║    \u001B[34mS for Special          \u001B[36m║");
-            System.out.println("╚═══════════════════════════╝\u001B[0m");
+            System.out.println("\u001B[36m===============================");
+            System.out.println("|    \u001B[34mR for Regular          \u001B[36m|");
+            System.out.println("|    \u001B[34mS for Special          \u001B[36m|");
+            System.out.println("===============================\u001B[0m");
+            System.out.println("\u001B[0mEnter your choice (R or S)");
+
             System.out.println("\u001B[0mEnter your choice (R or S)");
             System.out.print("\t\t\t=> ");
             machineType = scanner.next();
@@ -101,12 +105,12 @@ public class Menu {
         System.out.println();
         System.out.println();
         String createVMText =
-                "\u001B[35m\t  ╔══════════════════════════╗\n" +
-                        "\t  ║                          ║\n" +
-                        "\t  ║  Regular Vending Machine ║\n" +
-                        "\t  ║        created.          ║\n" +
-                        "\t  ║                          ║\n" +
-                        "\t  ╚══════════════════════════╝\u001B[0m";
+                "\u001B[35m\t  ============================\n" +
+                        "\t  |                          |\n" +
+                        "\t  |  Regular Vending Machine |\n" +
+                        "\t  |       created.          |\n" +
+                        "\t  |                          |\n" +
+                        "\t  ============================\u001B[0m";
 
         System.out.println(createVMText);
         System.out.println();
@@ -127,16 +131,16 @@ public class Menu {
         do {
             System.out.println();
             System.out.println();
-            System.out.println("\u001B[92m╔════════════════════════════╗");
-            System.out.println("\u001B[92m║     Maintenance Menu       ║");
-            System.out.println("\u001B[92m╠════════════════════════════╣");
-            System.out.println("\u001B[92m║ 1. Refill Items            ║");
-            System.out.println("\u001B[92m║ 2. Restock Change          ║");
-            System.out.println("\u001B[92m║ 3. Update Prices           ║");
-            System.out.println("\u001B[92m║ 4. Collect Payments        ║");
-            System.out.println("\u001B[92m║ 5. Print Summary           ║");
-            System.out.println("\u001B[92m║ 6. Go Back                 ║");
-            System.out.println("\u001B[92m╚════════════════════════════╝");
+            System.out.println("==============================");
+            System.out.println("|     Maintenance Menu       |");
+            System.out.println("==============================");
+            System.out.println("| 1. Refill Items            |");
+            System.out.println("| 2. Restock Change          |");
+            System.out.println("| 3. Update Prices           |");
+            System.out.println("| 4. Collect Payments        |");
+            System.out.println("| 5. Print Summary           |");
+            System.out.println("| 6. Go Back                 |");
+            System.out.println("==============================");
             System.out.print("\u001B[92mEnter your choice (1-6): ");
             option = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
