@@ -133,7 +133,7 @@ public class Menu {
             System.out.println("\u001B[92m║ 1. Refill Items            ║");
             System.out.println("\u001B[92m║ 2. Restock Change          ║");
             System.out.println("\u001B[92m║ 3. Update Prices           ║");
-            System.out.println("\u001B[92m║ 4. Dispense Payments       ║");
+            System.out.println("\u001B[92m║ 4. Collect Payments        ║");
             System.out.println("\u001B[92m║ 5. Print Summary           ║");
             System.out.println("\u001B[92m║ 6. Go Back                 ║");
             System.out.println("\u001B[92m╚════════════════════════════╝");

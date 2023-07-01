@@ -266,7 +266,7 @@ public class RegularVendingMachine {
         System.out.println(ANSI_RED + "╠════════════════════════════════════════════" + ANSI_YELLOW);
         System.out.printf(ANSI_RED + "║ %-15s: " + ANSI_YELLOW + "$%.2f             %n" + ANSI_YELLOW, "Total Sales", totalSales);
         System.out.printf(ANSI_RED + "║ %-15s: " + ANSI_YELLOW + "%d                %n", "Total Transactions", transactionCount);
-        if (change > 0) {
+        if (change >= 0) {
             System.out.printf(ANSI_RED + "║" + ANSI_YELLOW + "Change: $%.2f%n", change);
         }
         System.out.println(ANSI_RED + "╚═════════════════════════════════════════════" + ANSI_RESET);
@@ -376,6 +376,7 @@ public class RegularVendingMachine {
      * @return The method is returning a boolean value.
      */
     public boolean processTransaction(int slot, int paymentDenomination) throws IllegalArgumentException {
+
         double price = itemPrices.get(slot);
         if (price == DEFAULT_PRICE) {
             System.out.println("Item price not set.");
