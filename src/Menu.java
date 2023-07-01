@@ -251,10 +251,20 @@ public class Menu {
         int itemNumber = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
 
+        if ((itemNumber < 1) || (itemNumber > 8)){
+            System.out.println("Item slot doesn't exist");
+            return;
+        }
+
         vendingMachine.displayUpdatedDenominationQuantities();
         System.out.print("Enter the payment denomination (1-9): ");
         int paymentDenomination = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
+
+        if ((paymentDenomination < 1) || (paymentDenomination > 9)){
+            System.out.println("Denomination doesn't exist");
+            return;
+        }
 
         if (vendingMachine.processTransaction(itemNumber - 1, paymentDenomination)) {
             System.out.println();
