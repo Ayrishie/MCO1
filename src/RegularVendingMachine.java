@@ -165,7 +165,7 @@ public class RegularVendingMachine {
             double price = itemPrices.get(i);
             int calories = itemCalories.get(i);
 
-            System.out.printf("\u001B[36m║ \u001B[33m%2d. %-20s%8d%13.2f  %5d  \u001B[36m ║%n", i + 1, item, quantity, price, calories);
+            System.out.printf("\u001B[36m║ \u001B[33m%2d. %-20s%8d$%13.2f  %5d  \u001B[36m ║%n", i + 1, item, quantity, price, calories);
         }
         System.out.println("\u001B[36m╚════════════════════════════════════════════════════════╝");
     }
