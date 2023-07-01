@@ -363,6 +363,7 @@ public class RegularVendingMachine {
     }
 
 
+    //maintenance features
     public void refillItem(int slotNumber, int quantity) {
         // Check if the slot number is valid
         if (slotNumber < 1 || slotNumber > SLOT_COUNT) {
@@ -417,8 +418,9 @@ public class RegularVendingMachine {
 
         // Update the denomination quantity with the new quantity
         denominationQuantities.set(denominationNumber - 1, newQuantity);
-        System.out.println("Change restocked successfully.");
+        System.out.println("\u001B[33mChange restocked successfully.\001B[0m");
     }
+
 
     public void updateItemPrice(int slot, double newPrice) {
         if (slot < 1 || slot > SLOT_COUNT) {
@@ -434,25 +436,32 @@ public class RegularVendingMachine {
         int index = slot - 1;
         itemPrices.set(index, newPrice);
 
-        System.out.println("Item price updated successfully!");
+        System.out.println("\u001B[33mItem price updated successfully!\u001B[0m");
         System.out.println("New price for " + itemSlots.get(index) + " is " + newPrice);
     }
+
     public void printSummary() {
-        System.out.println("Item Summary:");
+        System.out.println();
+        System.out.println("\u001B[93m╔══════════════════════════════════╗");
+        System.out.println("║           Item Summary           ║");
+        System.out.println("╠══════════════════════════════════╣");
         for (int i = 0; i < SLOT_COUNT; i++) {
             String item = itemSlots.get(i);
             int initialQuantity = initialItemQuantities.get(i);
             int soldQuantity = soldItemQuantities.get(i);
 
-            System.out.println("Item: " + item);
-            System.out.println("Before Quantity: " + initialQuantity);
-            System.out.println("After Quantity: " + (initialQuantity - soldQuantity));
-            System.out.println("----------");
+            System.out.println("\u001B[97m║ Item: \u001B[92m" + item);
+            System.out.println("\u001B[97m║ Before Quantity: \u001B[92m" + initialQuantity);
+            System.out.println("\u001B[97m║ After Quantity: \u001B[92m" + (initialQuantity - soldQuantity));
+            System.out.println("\u001B[97m║----------------------------------");
         }
-        System.out.println("Number of transactions: " + transactionCount);
-        System.out.println("Total sales: " + totalSales);
+        System.out.println("\u001B[97m║ Number of transactions: \u001B[92m" + transactionCount);
+        System.out.println("\u001B[97m║ Total sales: \u001B[92m" + totalSales);
+        System.out.println("\u001B[93m╚══════════════════════════════════╝\u001B[0m");
         System.out.println();
     }
+
+
 
     public void resetItemQuantities() {
         initialItemQuantities = new ArrayList<>(itemQuantities);
