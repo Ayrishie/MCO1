@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Menu {
@@ -8,58 +9,25 @@ public class Menu {
     public Menu() {
         scanner = new Scanner(System.in);
         vendingMachine = null;
-        maintenance = null;
+        maintenance = new Maintenance(); // Create an instance of Maintenance
     }
 
-    public void displayMenu() {
-        showTitleScreen(); // display once
-        int choice;
-        do {
-            clearScreen();
-            showColoredMenu();
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
-            switch (choice) {
-                case 1:
-                    createVendingMachine();
-                    break;
-                case 2:
-                    testVendingMachineSubMenu();
-                    break;
-                case 3:
-                    System.out.println("Exiting...");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
-            }
-        } while (choice != 3);
-    }
-
-    public void testVendingMachineSubMenu() {
-        int option;
-        do {
-            clearScreen();
-            showTestVendingMachineSubMenu();
-            option = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
-            switch (option) {
-                case 1:
-                    testVendingFeatures();
-                    break;
-                case 2:
-                    performMaintenance();
-                    break;
-                case 3:
-                    System.out.println("Going back to the main menu...");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
-            }
-        } while (option != 3);
+    //displays
+    private void showTitleScreen() {
+        System.out.println();
+        System.out.println("\u001B[38;5;196m╔══════════════════════════════════════════╗");
+        System.out.println("\u001B[38;5;202m║\u001B[38;5;196m       RRRR    AAAA  IIIIII   OOOOO       \u001B[38;5;202m║");
+        System.out.println("\u001B[38;5;208m║\u001B[38;5;196m       R   R  A    A   II     O   O       \u001B[38;5;208m║");
+        System.out.println("\u001B[38;5;214m║\u001B[38;5;196m       RRRR   AAAAAA   II     O   O       \u001B[38;5;214m║");
+        System.out.println("\u001B[38;5;220m║\u001B[38;5;196m       R  R   A    A   II     O   O       \u001B[38;5;220m║");
+        System.out.println("\u001B[38;5;226m║\u001B[38;5;196m       R   R  A    A  IIIII   OOOOO       \u001B[38;5;226m║");
+        System.out.print("\u001B[38;5;190m╚══════════════════════════════════════════╝");
+        System.out.println("\nWelcome to RAIO Vending Machine Factory and Store!");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showTestVendingMachineSubMenu() {
@@ -78,38 +46,8 @@ public class Menu {
         System.out.println("\u001B[37mEnter your choice (1-3)");
         System.out.print("\t\t=> ");
     }
-
-
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    private void showTitleScreen() {
-        System.out.println();
-        System.out.println("\u001B[38;5;196m╔══════════════════════════════════════════╗");
-        System.out.println("\u001B[38;5;202m║\u001B[38;5;196m       RRRR    AAAA  IIIIII   OOOOO       \u001B[38;5;202m║");
-        System.out.println("\u001B[38;5;208m║\u001B[38;5;196m       R   R  A    A   II     O   O       \u001B[38;5;208m║");
-        System.out.println("\u001B[38;5;214m║\u001B[38;5;196m       RRRR   AAAAAA   II     O   O       \u001B[38;5;214m║");
-        System.out.println("\u001B[38;5;220m║\u001B[38;5;196m       R  R   A    A   II     O   O       \u001B[38;5;220m║");
-        System.out.println("\u001B[38;5;226m║\u001B[38;5;196m       R   R  A    A  IIIII   OOOOO       \u001B[38;5;226m║");
-        System.out.print("\u001B[38;5;190m╚══════════════════════════════════════════╝");
-        System.out.println("\nWelcome to RAIO Vending Machine Factory and Store!");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void showColoredMenu() {
         System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("\u001B[36m*********************************************");
-        System.out.println("\u001B[35m>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.println("\u001B[36m*********************************************");
         System.out.println();
         System.out.println("\u001B[32m╔══════════════════════════════════════╗");
         System.out.println("\u001B[32m║           Vending Machine            ║");
@@ -118,7 +56,7 @@ public class Menu {
         System.out.println("\u001B[33m║  2. Test a Vending Machine           ║");
         System.out.println("\u001B[33m║  3. Exit                             ║");
         System.out.println("\u001B[32m╚══════════════════════════════════════╝");
-        System.out.println("\u001B[37mEnter your choice (1-4)");
+        System.out.println("\u001B[37mEnter your choice (1-3)");
         System.out.print("\t\t=> ");
 
     }
@@ -133,6 +71,8 @@ public class Menu {
         System.out.print("\t\t\t=> ");
         String machineType = scanner.next();
         scanner.nextLine(); // Consume the newline character
+        System.out.println();
+        System.out.println();
 
         while (!machineType.equalsIgnoreCase("R")) {
             System.out.println("\u001B[36m╔═══════════════════════════╗");
@@ -147,38 +87,86 @@ public class Menu {
 
         vendingMachine = new RegularVendingMachine();
         System.out.println();
-        System.out.println("\t\t   \u001B[31mRegular Vending Machine created.\u001B[0m");
+        String coolText =
+                "\t╔══════════════════════════╗\n" +
+                        "\t║                          ║\n" +
+                        "\t║  Regular Vending Machine ║\n" +
+                        "\t║        created.          ║\n" +
+                        "\t║                          ║\n" +
+                        "\t╚══════════════════════════╝";
+
+        System.out.println(coolText);
         System.out.println();
+        System.out.println();
+
     }
+    public void displayMenu() {
+        showTitleScreen(); // display once
+        int choice;
+        boolean vendingMachineCreated = false;
 
-    public void testVendingMachine() {
-        if (vendingMachine == null) {
-            System.out.println("No Vending Machine created yet.");
-            return;
-        }
-
-        int option;
         do {
-            System.out.println("Choose an option:");
-            System.out.println("1. Test Vending Features");
-            System.out.println("2. Go back");
-            System.out.print("Enter your choice (1-2): ");
-            option = scanner.nextInt();
+            clearScreen();
+            showColoredMenu();
+            choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
+            switch (choice) {
+                case 1:
+                    createVendingMachine();
+                    vendingMachineCreated = true;
+                    break;
+                case 2:
+                    if (!vendingMachineCreated) {
+                        System.out.println();
+                        System.out.println("\u001b[31m No Vending Machine created yet.");
+                        System.out.println("\u001b[31m Please create a Vending Machine first.\u001b[37m");
+                        continue;
+                    }
+                    testVendingMachineSubMenu();
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } while (choice != 3);
+    }
+
+
+    //methods or fucntions
+    public void testVendingMachineSubMenu() {
+        int option = 0;
+        do {
+            clearScreen();
+            showTestVendingMachineSubMenu();
+            option = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
             switch (option) {
                 case 1:
                     testVendingFeatures();
                     break;
                 case 2:
+                    performMaintenance();
+                    break;
+                case 3:
                     System.out.println("Going back to the main menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } while (option != 2);
+        } while (option != 3);
     }
+
+
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
 
     private void testVendingFeatures() {
         vendingMachine.displayItems();
@@ -187,7 +175,6 @@ public class Menu {
         int itemNumber = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
 
-        vendingMachine.displayDenominationQuantities();
         System.out.print("Enter the payment denomination (1-9): ");
         int paymentDenomination = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
@@ -204,13 +191,7 @@ public class Menu {
     }
 
     private void performMaintenance() {
-        if (maintenance == null) {
-            maintenance = new Maintenance();
-        }
-
-        RegularVendingMachine vendingMachine = maintenance.getVendingMachine();
-        if (vendingMachine == null) {
-            vendingMachine = this.vendingMachine; // Assign the created vending machine
+        if (maintenance.getVendingMachine() == null) {
             maintenance.setVendingMachine(vendingMachine); // Pass the reference to Maintenance
         }
 
@@ -220,8 +201,10 @@ public class Menu {
             System.out.println("1. Refill Items");
             System.out.println("2. Restock Change");
             System.out.println("3. Update Prices");
-            System.out.println("4. Go back");
-            System.out.print("Enter your choice (1-4): ");
+            System.out.println("4. Dispense payments.");
+            System.out.println("5. Print Summary");
+            System.out.println("6. Go back");
+            System.out.print("Enter your choice (1-6): ");
             option = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
@@ -233,38 +216,28 @@ public class Menu {
                     maintenance.restockChange(vendingMachine);
                     break;
                 case 3:
-                    updatePrices(vendingMachine);
+                    maintenance.updatePrices(vendingMachine);
                     break;
                 case 4:
+                    maintenance.dispenseTotalPayments(vendingMachine);
+                    break;
+                case 5:
+                    vendingMachine.printSummary();
+                    break;
+                case 6:
                     System.out.println("Going back to the main menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } while (option != 4);
+        } while (option != 6);
     }
 
-    private void updatePrices(RegularVendingMachine vendingMachine) {
-        if (vendingMachine == null) {
-            System.out.println("No Vending Machine created yet.");
-            return;
-        }
 
-        System.out.print("Enter the slot number of the item: ");
-        int slotNumber = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
-
-        System.out.print("Enter the new price for the item: ");
-        double newPrice = scanner.nextDouble();
-        scanner.nextLine(); // Consume the newline character
-
-        vendingMachine.updateItemPrice(slotNumber, newPrice);
-    }
     public static void main(String[] args) {
         Menu menu = new Menu();
         menu.displayMenu();
     }
 }
 
-//hello
